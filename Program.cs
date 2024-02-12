@@ -84,6 +84,56 @@
 //В цикле foreach вызовите методы LoadCargo(500) и UnloadCargo() для каждого объекта в массиве.
 //Выведите тип каждого объекта.
 
+class Truck : IVehicle, ITransportable
+{
+
+    public string VehicleType { get { return "truck"; } }
+
+    
+    public int speed { get; set; }
+    void Start()
+    {
+
+    }
+    void Stop()
+    {
+
+    }
+    void Accelerate(int speed)
+    {
+
+        this.speed = speed;
+        Console.WriteLine(speed);
+    }
+    void Brake()
+    {
+
+    }
+    public int weight { get; set; }
+    public int LoadCargo(int weight)
+    {
+        this.weight = weight;
+        return weight;
+    }
+    public void UnloadCargo()
+    {
+        weight = 0;
+    }
+
+}
+interface ITransportable
+{
+    public int weight { get; set; }
+    int LoadCargo(int weight)
+    {
+        this.weight = weight;
+        return weight;
+    }
+    void UnloadCargo()
+    {
+        weight = 0;
+    }
+}
 interface IDrivable
 {
 
@@ -97,11 +147,11 @@ interface IVehicle
     public int speed { get; set; }
     void Start()
     {
-     
+
     }
     void Stop()
     {
-     
+
     }
     void Accelerate(int speed)
     {
@@ -110,25 +160,34 @@ interface IVehicle
         Console.WriteLine(speed);
     }
     void Brake()
-    { 
-       
+    {
+
     }
 }
 
-class Car:IVehicle, IDrivable
+class Car : IVehicle, IDrivable, ITransportable
 {
+
     public string VehicleType
     {
         get { return "Car"; }
-       
+
+    }
+    public int weight { get; set; }
+    public int LoadCargo(int weight)
+    {
+        this.weight = weight;
+        return weight;
+    }
+    public void UnloadCargo()
+    {
+        weight = 0;
     }
 
 
-    
-
     public void Drive()
     {
-        Console.WriteLine("Mashina upravljatesja") ;
+        Console.WriteLine("Mashina upravljatesja");
 
     }
     public int speed { get; set; }
@@ -136,11 +195,11 @@ class Car:IVehicle, IDrivable
     {
         Console.WriteLine("Masniva vrum vrum");
     }
-    public  void Stop()
+    public void Stop()
     {
         Console.WriteLine("Mashina stoit");
     }
-    public  void Accelerate(int speed)
+    public void Accelerate(int speed)
     {
 
         this.speed = speed;
@@ -152,7 +211,7 @@ class Car:IVehicle, IDrivable
         Console.WriteLine("Mashina tormozit");
     }
 }
-class Motorcycle:IVehicle
+class Motorcycle : IVehicle
 {
     public string VehicleType
     {
@@ -166,7 +225,7 @@ class Motorcycle:IVehicle
     {
         Console.WriteLine("Motik vrum vrum vrum vrum");
     }
-   public void Stop()
+    public void Stop()
     {
         Console.WriteLine("Motik stoit");
     }
@@ -238,7 +297,19 @@ class Program
         bicycle.Accelerate(10);
         Console.WriteLine(bicycle.VehicleType);
 
-        IVehicle[] ivehicle = { car, bicycle, motorcycle };
+       
+
+
+        Truck truck = new Truck();
+
+        ITransportable[] transportables = { car, truck };
+        foreach (ITransportable transportable in transportables)
+        {
+            transportable.LoadCargo(500);
+            transportable.UnloadCargo();
+        }
+
+        IVehicle[] ivehicle = { car, bicycle, motorcycle, truck };
         Console.WriteLine(" ");
         foreach (IVehicle vehicle in ivehicle)
         { Console.WriteLine(vehicle.VehicleType); }
