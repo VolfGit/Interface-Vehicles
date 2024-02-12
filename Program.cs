@@ -68,6 +68,22 @@
 
 //Убедитесь, что каждый объект корректно реализует методы интерфейсов и полиморфизм применяется при использовании массива интерфейсов.
 
+
+
+//Интерфейсы и полиморфизм:
+
+//Создайте интерфейс ITransportable с методами LoadCargo(int weight) и UnloadCargo().
+//Расширьте интерфейс IVehicle новыми методами.
+//В классе Car реализуйте методы из обоих интерфейсов. В этом случае, Car будет реализовывать интерфейсы IVehicle и ITransportable.
+//Реализация интерфейсов:
+
+//Добавьте новый класс Truck, представляющий грузовик. Грузовик должен реализовывать интерфейсы IVehicle и ITransportable.
+//Использование в программе:
+
+//В методе Main создайте массив ITransportable[], содержащий объекты Car и Truck.
+//В цикле foreach вызовите методы LoadCargo(500) и UnloadCargo() для каждого объекта в массиве.
+//Выведите тип каждого объекта.
+
 interface IDrivable
 {
 
@@ -103,7 +119,7 @@ class Car:IVehicle, IDrivable
 {
     public string VehicleType
     {
-        get { return "car"; }
+        get { return "Car"; }
        
     }
 
@@ -221,5 +237,10 @@ class Program
         bicycle.Stop();
         bicycle.Accelerate(10);
         Console.WriteLine(bicycle.VehicleType);
+
+        IVehicle[] ivehicle = { car, bicycle, motorcycle };
+        Console.WriteLine(" ");
+        foreach (IVehicle vehicle in ivehicle)
+        { Console.WriteLine(vehicle.VehicleType); }
     }
 }
